@@ -3,620 +3,313 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Music_m1c_d</title>
+    <title>لێدەری میوزیک | @m1c_d</title>
+    <!-- بارکردنی Tailwind CSS بۆ دیزاینی مۆدێرن و گونجاو لەگەڵ مۆبایل -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- فۆنتی کوردی سۆرانی (Vazirmatn & Noto Sans Arabic) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800&family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Vazirmatn', 'Noto Sans Arabic', 'sans-serif'],
+                    },
+                    colors: {
+                        darkBg: '#0b0e14',
+                        cardBg: '#141923',
+                        pillBg: '#171d29',
+                        brandBlue: '#1d9bf0',
+                        cyanAccent: '#38bdf8',
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;600;700;800&display=swap');
-
-        :root {
-            --bg-main: #090d16;
-            --bg-card: #121826;
-            --bg-pill: #182032;
-            --accent: #0ea5e9;
-            --accent-glow: rgba(14, 165, 233, 0.35);
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --border-color: rgba(255, 255, 255, 0.08);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Noto Sans Arabic', sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-
+        /* ڕێکخستنە گشتییەکان و ڕەنگە تاریکەکان */
         body {
-            background-color: var(--bg-main);
-            color: var(--text-primary);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 16px 14px 30px;
+            background-color: #0b0e14;
+            background-image: 
+                radial-gradient(circle at 20% 10%, rgba(29, 155, 240, 0.07) 0%, transparent 45%),
+                radial-gradient(circle at 80% 90%, rgba(56, 189, 248, 0.06) 0%, transparent 45%);
+            color: #f8fafc;
+            font-family: 'Vazirmatn', 'Noto Sans Arabic', sans-serif;
             overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
         }
 
-        /* شريط الحقوق العلوي */
-        .dev-pill {
-            background: var(--bg-pill);
-            border: 1px solid var(--border-color);
-            border-radius: 50px;
-            padding: 8px 20px;
-            display: inline-flex;
-            align-items: center;
-            gap: 14px;
-            margin-bottom: 18px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-            direction: ltr;
+        /* دیزاینی شریتی سکڕۆڵ */
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
         }
-
-        .dev-pill a {
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            transition: transform 0.2s;
+        ::-webkit-scrollbar-track {
+            background: #0b0e14;
         }
-
-        .dev-pill a:active {
-            transform: scale(0.9);
-        }
-
-        .dev-pill svg {
-            width: 18px;
-            height: 18px;
-            fill: currentColor;
-        }
-
-        .dev-username {
-            color: var(--accent);
-            font-weight: 800;
-            font-size: 15px;
-            letter-spacing: 0.5px;
-            cursor: pointer;
-        }
-
-        /* بطاقة المشغل الرئيسية */
-        .player-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 28px;
-            width: 100%;
-            max-width: 420px;
-            padding: 22px 18px;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 18px;
-        }
-
-        .cover-wrapper {
-            width: 195px;
-            height: 195px;
-            border-radius: 24px;
-            background: #0d131f;
-            border: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            margin-bottom: 16px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45);
-            position: relative;
-        }
-
-        .cover-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .default-icon {
-            width: 76px;
-            height: 76px;
-            border-radius: 50%;
-            border: 2px solid rgba(14, 165, 233, 0.25);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--accent);
-        }
-
-        .song-title {
-            font-size: 18px;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 4px;
-            width: 100%;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            padding: 0 8px;
-        }
-
-        .song-meta {
-            font-size: 12px;
-            color: var(--text-secondary);
-            margin-bottom: 18px;
-        }
-
-        /* أزرار التعديل الثلاثة */
-        .action-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            width: 100%;
-            margin-bottom: 20px;
-        }
-
-        .action-btn {
-            background: #172033;
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 10px 6px;
-            color: var(--text-primary);
-            font-size: 12px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            cursor: pointer;
-            transition: background 0.2s, transform 0.15s;
-        }
-
-        .action-btn:active {
-            transform: scale(0.96);
+        ::-webkit-scrollbar-thumb {
             background: #1e293b;
+            border-radius: 999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1d9bf0;
         }
 
-        .action-btn svg {
-            width: 16px;
-            height: 16px;
-            stroke: var(--accent);
-            fill: none;
-            stroke-width: 2;
-            flex-shrink: 0;
+        /* درەوشانەوەی دوگمەی سەرەکی لێدان */
+        .play-btn-glow {
+            background: linear-gradient(135deg, #1d9bf0 0%, #38bdf8 100%);
+            box-shadow: 0 0 25px rgba(29, 155, 240, 0.45), 0 8px 20px rgba(0, 0, 0, 0.5);
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease;
+        }
+        .play-btn-glow:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 32px rgba(56, 189, 248, 0.65), 0 10px 25px rgba(0, 0, 0, 0.6);
+        }
+        .play-btn-glow:active {
+            transform: scale(0.95);
         }
 
-        /* شريط التقدم (مضبوط LTR ليتطابق اللون مع النقطة 100%) */
-        .progress-section {
-            width: 100%;
-            margin-bottom: 18px;
-            direction: ltr;
+        /* درەوشانەوەی وێنەی گۆرانی */
+        .cover-shadow {
+            box-shadow: 0 18px 40px -10px rgba(0, 0, 0, 0.85), 0 0 25px rgba(29, 155, 240, 0.12);
         }
 
-        .seek-bar {
+        /* شریتی پێشکەوتن و بڕین (Range Sliders) */
+        input[type="range"].custom-slider {
             -webkit-appearance: none;
             appearance: none;
-            width: 100%;
-            height: 6px;
-            border-radius: 10px;
-            background: #232d42;
-            outline: none;
+            background: transparent;
             cursor: pointer;
-            margin-bottom: 8px;
         }
-
-        .seek-bar::-webkit-slider-thumb {
+        input[type="range"].custom-slider::-webkit-slider-runnable-track {
+            height: 6px;
+            border-radius: 999px;
+        }
+        input[type="range"].custom-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 16px;
             height: 16px;
+            width: 16px;
             border-radius: 50%;
             background: #ffffff;
-            border: 3px solid var(--accent);
-            box-shadow: 0 0 10px var(--accent);
-            cursor: pointer;
+            border: 3px solid #1d9bf0;
+            box-shadow: 0 0 10px rgba(29, 155, 240, 0.85);
+            margin-top: -5px;
+            transition: transform 0.15s ease;
+        }
+        input[type="range"].custom-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.25);
         }
 
-        .time-row {
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            color: var(--text-secondary);
-            font-variant-numeric: tabular-nums;
+        /* جوڵەی شەپۆلی دەنگ لە لیستی گۆرانییەکان */
+        @keyframes soundWave {
+            0%, 100% { height: 4px; }
+            50% { height: 15px; }
         }
-
-        /* أزرار التحكم بالتشغيل */
-        .controls-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            padding: 0 6px;
-        }
-
-        .ctrl-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-secondary);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            cursor: pointer;
-            font-size: 11px;
-            transition: color 0.2s, transform 0.15s;
-        }
-
-        .ctrl-btn.active {
-            color: var(--accent);
-        }
-
-        .ctrl-btn:active {
-            transform: scale(0.92);
-        }
-
-        .nav-btn {
-            background: #172033;
-            border: 1px solid var(--border-color);
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-primary);
-            cursor: pointer;
-        }
-
-        .play-btn {
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            background: var(--accent);
-            border: none;
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 22px var(--accent-glow);
-            cursor: pointer;
-            transition: transform 0.15s;
-        }
-
-        .play-btn:active {
-            transform: scale(0.94);
-        }
-
-        /* قسم قائمة الأغاني وزر السماح */
-        .library-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            width: 100%;
-            max-width: 420px;
-            padding: 16px;
-        }
-
-        .library-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            margin-bottom: 14px;
-        }
-
-        .library-title {
-            font-size: 15px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .badge {
-            background: rgba(14, 165, 233, 0.15);
-            color: var(--accent);
-            font-size: 12px;
-            padding: 2px 9px;
-            border-radius: 20px;
-        }
-
-        .import-btn {
-            background: rgba(14, 165, 233, 0.15);
-            border: 1px solid rgba(14, 165, 233, 0.4);
-            color: var(--accent);
-            padding: 8px 14px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            white-space: nowrap;
-        }
-
-        .import-btn:active {
-            transform: scale(0.96);
-        }
-
-        .song-list {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            max-height: 280px;
-            overflow-y: auto;
-        }
-
-        .song-item {
-            background: #161e2e;
-            border: 1px solid transparent;
-            border-radius: 14px;
-            padding: 10px 12px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .song-item.active {
-            border-color: var(--accent);
-            background: rgba(14, 165, 233, 0.08);
-        }
-
-        .item-thumb {
-            width: 42px;
-            height: 42px;
-            border-radius: 10px;
-            background: #0d131f;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            flex-shrink: 0;
-            color: var(--accent);
-        }
-
-        .item-thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .item-info {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .item-name {
-            font-size: 14px;
-            font-weight: 600;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .item-size {
-            font-size: 11px;
-            color: var(--text-secondary);
-        }
-
-        /* النوافذ المنبثقة (تعديل الاسم وقص الأغنية) */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.78);
-            backdrop-filter: blur(4px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
-            z-index: 100;
-        }
-
-        .modal-overlay.open {
-            display: flex;
-        }
-
-        .modal-box {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 22px;
-            width: 100%;
-            max-width: 380px;
-            padding: 20px;
-        }
-
-        .modal-title {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 14px;
-            text-align: center;
-        }
-
-        .modal-input {
-            width: 100%;
-            background: #0d131f;
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 12px;
-            color: #fff;
-            font-size: 14px;
-            margin-bottom: 14px;
-            outline: none;
-        }
-
-        .modal-input:focus {
-            border-color: var(--accent);
-        }
-
-        .trim-row {
-            margin-bottom: 12px;
-        }
-
-        .trim-label {
-            display: flex;
-            justify-content: space-between;
-            font-size: 13px;
-            margin-bottom: 6px;
-            color: var(--text-secondary);
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .btn-primary {
-            flex: 1;
-            background: var(--accent);
-            color: #fff;
-            border: none;
-            border-radius: 12px;
-            padding: 11px;
-            font-weight: 700;
-            font-size: 14px;
-            cursor: pointer;
-        }
-
-        .btn-secondary {
-            flex: 1;
-            background: #1e293b;
-            color: var(--text-primary);
-            border: none;
-            border-radius: 12px;
-            padding: 11px;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 24px 10px;
-            color: var(--text-secondary);
-            font-size: 13px;
-            line-height: 1.7;
-        }
-
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            background: #1e293b;
-            color: #fff;
-            padding: 10px 18px;
-            border-radius: 30px;
-            font-size: 13px;
-            border: 1px solid var(--accent);
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s;
-            z-index: 200;
-        }
-
-        .toast.show {
-            opacity: 1;
-        }
+        .wave-active .w-bar-1 { animation: soundWave 0.75s ease-in-out infinite; }
+        .wave-active .w-bar-2 { animation: soundWave 0.55s ease-in-out infinite 0.2s; }
+        .wave-active .w-bar-3 { animation: soundWave 0.85s ease-in-out infinite 0.1s; }
     </style>
 </head>
-<body>
+<body class="min-h-screen flex flex-col items-center">
 
-    <!-- كبسولة الحقوق العلوية -->
-    <div class="dev-pill">
-        <a href="https://www.snapchat.com/add/m1c_d" target="_blank" title="Snapchat">
-            <svg viewBox="0 0 24 24"><path d="M12 2c-3.1 0-5.4 2.2-5.4 5.3 0 .8.1 1.6.3 2.3-.3.1-.7.2-1 .2-.6 0-1.1.4-1.1.9 0 .5.4.9 1.1 1.1.3.1.6.2.7.4.1.2 0 .5-.2.9-.7 1.3-1.9 2.3-3.4 2.7-.5.1-.8.5-.7 1 .1.4.5.7 1.1.8 1.1.2 1.8.5 2.1 1.1.2.4.4.8 1 .8.4 0 .9-.2 1.5-.3.6-.1 1.2-.2 2-.2s1.4.1 2 .2c.6.1 1.1.3 1.5.3.6 0 .8-.4 1-.8.3-.6 1-.9 2.1-1.1.6-.1 1-.4 1.1-.8.1-.5-.2-.9-.7-1-1.5-.4-2.7-1.4-3.4-2.7-.2-.4-.3-.7-.2-.9.1-.2.4-.3.7-.4.7-.2 1.1-.6 1.1-1.1 0-.5-.5-.9-1.1-.9-.3 0-.7-.1-1-.2.2-.7.3-1.5.3-2.3C17.4 4.2 15.1 2 12 2z"/></svg>
-        </a>
-        <a href="https://t.me/m1c_d" target="_blank" title="Telegram">
-            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.69-.52.36-1 .53-1.42.52-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.24.35-.49.96-.75 3.78-1.65 6.31-2.74 7.58-3.27 3.61-1.51 4.35-1.77 4.84-1.78.11 0 .35.03.5.16.13.1.17.24.18.34.02.07.02.21 0 .33z"/></svg>
-        </a>
-        <a href="https://www.tiktok.com/@m1c_d" target="_blank" title="TikTok">
-            <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
-        </a>
-        <span class="dev-username" onclick="copyUser()">@m1c_d</span>
-    </div>
+    <!-- ١. کەپسولی مافی گەشەپێدەر لە سەرەوەی بەرنامە (@m1c_d) -->
+    <header class="w-full pt-4 pb-2 px-4 flex flex-col items-center justify-center sticky top-0 z-30 bg-[#0b0e14]/85 backdrop-blur-md">
+        <div dir="ltr" onclick="copyDeveloperUsername()" title="کرتە بکە بۆ کۆپیکردنی @m1c_d"
+             class="cursor-pointer group inline-flex items-center gap-4 px-6 py-2.5 rounded-full bg-[#171d29] border border-white/10 shadow-xl hover:border-[#1d9bf0]/50 transition-all duration-300">
+            
+            <!-- ئایکۆنی سناپچات (سپی) -->
+            <a href="https://www.snapchat.com/add/m1c_d" target="_blank" onclick="event.stopPropagation()" aria-label="Snapchat"
+               class="text-white hover:text-[#1d9bf0] transition-transform hover:scale-110">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                    <path d="M12.206 2.024c-2.613-.06-4.888 1.564-5.466 4.14-.226 1.007-.124 2.138-.035 3.128.023.257.046.506.058.742-.262.136-.576.197-.893.197-.39 0-.772-.11-1.082-.252-.236-.108-.5-.13-.748-.055-.423.128-.69.54-.635.98.055.442.426.783.88.88.395.084.828.22 1.157.448.198.138.282.345.217.568-.317 1.093-1.158 2.275-2.642 2.948-.373.17-.576.572-.482.972.094.4.442.685.853.713.864.06 1.637.243 2.155.524.217.118.353.337.392.582.067.42.263.845.675 1.01.412.164.887.053 1.375-.06.56-.13 1.195-.277 1.88-.277.69 0 1.326.147 1.886.277.488.113.963.224 1.375.06.412-.165.608-.59.675-1.01.039-.245.175-.464.392-.582.518-.28 1.29-.464 2.155-.524.41-.028.759-.313.853-.713.094-.4-.109-.802-.482-.972-1.484-.673-2.325-1.855-2.642-2.948-.065-.223.02-.43.217-.568.33-.228.762-.364 1.157-.448.454-.097.825-.438.88-.88.055-.44-.212-.852-.635-.98-.248-.075-.512-.053-.748.055-.31.142-.692.252-1.082.252-.317 0-.63-.06-.893-.197.012-.236.035-.485.058-.742.089-.99.191-2.121-.035-3.128-.578-2.576-2.853-4.2-5.466-4.14z"/>
+                </svg>
+            </a>
 
-    <!-- بطاقة المشغل -->
-    <div class="player-card">
-        <div class="cover-wrapper" id="coverContainer">
-            <div class="default-icon">
-                <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+            <!-- ئایکۆنی تێلیگرام (سپی) -->
+            <a href="https://t.me/m1c_d" target="_blank" onclick="event.stopPropagation()" aria-label="Telegram"
+               class="text-white hover:text-[#1d9bf0] transition-transform hover:scale-110">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+                </svg>
+            </a>
+
+            <!-- ئایکۆنی تیک تۆک (سپی) -->
+            <a href="https://www.tiktok.com/@m1c_d" target="_blank" onclick="event.stopPropagation()" aria-label="TikTok"
+               class="text-white hover:text-[#1d9bf0] transition-transform hover:scale-110">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                </svg>
+            </a>
+
+            <!-- یوزەری گەشەپێدەر بە ڕەنگی شین -->
+            <span class="text-[#1d9bf0] font-bold text-base tracking-wide group-hover:text-[#38bdf8] transition-colors">
+                @m1c_d
+            </span>
+        </div>
+    </header>
+
+    <!-- ناوەڕۆکی سەرەکی بەرنامە -->
+    <main class="w-full max-w-lg mx-auto px-4 pt-2 pb-10 flex-1 flex flex-col">
+
+        <!-- ==================== ٢. شاشەی پێشوازی و ڕێگەپێدان بە گۆرانییەکانی ناو ئامێر ==================== -->
+        <section id="permissionScreen" class="flex-1 flex flex-col items-center justify-center text-center py-10 px-3">
+            <div class="w-24 h-24 rounded-3xl bg-[#141923] border border-[#1d9bf0]/30 flex items-center justify-center mb-6 shadow-2xl relative">
+                <div class="absolute inset-0 rounded-3xl bg-[#1d9bf0]/10 animate-pulse"></div>
+                <svg class="w-12 h-12 text-[#1d9bf0]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
                 </svg>
             </div>
-        </div>
 
-        <div class="song-title" id="currentTitle">هیچ گۆرانییەک هەڵنەبژێردراوە</div>
-        <div class="song-meta" id="currentMeta">قەبارە: 0 MB</div>
+            <h1 class="text-2xl font-extrabold text-white mb-2">لێدەری میوزیکی سادە و پڕۆفیشناڵ</h1>
+            <p class="text-sm text-slate-400 leading-relaxed max-w-sm mb-8">
+                بۆ پیشاندان و لێدانی هەموو گۆرانی و فایلە دەنگییەکانی ناو مۆبایل و ئامێرەکەت، تکایە ڕێگەپێدان بدە بۆ گەڕان لەناو فایلەکاندا.
+            </p>
 
-        <!-- أزرار التعديل الثلاثة -->
-        <div class="action-grid">
-            <button class="action-btn" onclick="triggerImageChange()">
-                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                <span>گۆڕینی وێنە</span>
+            <!-- دوگمەی سەرەکی ڕێگەپێدان بە گەڕان لە فۆڵدەر و ئامێر -->
+            <button onclick="requestDeviceMusicAccess()" class="w-full max-w-xs py-4 px-6 rounded-2xl play-btn-glow text-white font-bold text-base flex items-center justify-center gap-3 mb-3">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
+                </svg>
+                <span>ڕێگەپێدان بە گەڕان بۆ گۆرانییەکان</span>
             </button>
-            <button class="action-btn" onclick="openRenameModal()">
-                <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-                <span>گۆڕینی ناو</span>
-            </button>
-            <button class="action-btn" onclick="openTrimModal()">
-                <svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
-                <span>بڕینی گۆرانی</span>
-            </button>
-        </div>
 
-        <!-- شريط التقدم والوقت -->
-        <div class="progress-section">
-            <input type="range" id="seekBar" class="seek-bar" value="0" min="0" max="100" step="0.1">
-            <div class="time-row">
-                <span id="currentTime">0:00</span>
-                <span id="totalDuration">0:00</span>
+            <!-- بژاردەی یەدەگ بۆ هەڵبژاردنی ڕاستەوخۆی فایلە دەنگییەکان -->
+            <button onclick="triggerDirectFilesPicker()" class="text-xs text-slate-400 hover:text-[#38bdf8] py-2 px-4 transition">
+                یان هەڵبژاردنی گۆرانییەکان بە شێوەی دەستی
+            </button>
+        </section>
+
+        <!-- ==================== ٣. شاشەی سەرەکی لێدەر و لیستی گۆرانییەکان ==================== -->
+        <section id="playerWorkspace" class="hidden flex-col space-y-5">
+
+            <!-- کارتی لێدەری سەرەکی (Main Player Card) -->
+            <div class="bg-[#141923] border border-white/10 rounded-3xl p-5 shadow-2xl">
+                
+                <!-- بەشی سەرەوەی کارت: وێنەی گۆرانی + ناوی گۆرانی + ٣ دوگمە سەرەکییەکە -->
+                <div class="flex flex-col items-center text-center">
+                    
+                    <!-- وێنەی گۆرانی (چوارگۆشەی گۆشە خڕ) -->
+                    <div onclick="triggerCoverUpload()" title="کرتە بکە بۆ گۆڕینی وێنەی گۆرانی"
+                         class="relative group w-48 h-48 sm:w-56 sm:h-56 rounded-3xl overflow-hidden bg-[#0b0e14] border border-white/10 cover-shadow cursor-pointer mb-4">
+                        <img id="mainCoverImg" src="" alt="وێنەی گۆرانی" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        
+                        <!-- چینی سەرەوە بۆ گۆڕینی وێنە -->
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center backdrop-blur-[2px]">
+                            <svg class="w-7 h-7 text-white mb-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            <span class="text-xs font-bold text-white">گۆڕینی وێنە</span>
+                        </div>
+                    </div>
+
+                    <!-- ناوی گۆرانی -->
+                    <h2 id="mainSongTitle" class="text-lg sm:text-xl font-extrabold text-white line-clamp-1 px-2 mb-1">
+                        ناوی گۆرانی
+                    </h2>
+                    <p id="mainSongMeta" class="text-xs text-slate-400 mb-4">
+                        فایلی دەنگی ناو ئامێر
+                    </p>
+
+                    <!-- سێ تایبەتمەندییە داواکراوەکە بە سادەیی و ڕوونی: گۆڕینی وێنە، گۆڕینی ناو، بڕینی گۆرانی -->
+                    <div class="w-full grid grid-cols-3 gap-2 mb-5">
+                        <button onclick="triggerCoverUpload()" class="py-2.5 px-2 rounded-2xl bg-[#0b0e14] hover:bg-[#1a2232] border border-white/10 text-xs font-semibold text-slate-200 flex items-center justify-center gap-1.5 transition active:scale-95">
+                            <svg class="w-4 h-4 text-[#38bdf8] shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                            <span>گۆڕینی وێنە</span>
+                        </button>
+
+                        <button onclick="openRenameModal()" class="py-2.5 px-2 rounded-2xl bg-[#0b0e14] hover:bg-[#1a2232] border border-white/10 text-xs font-semibold text-slate-200 flex items-center justify-center gap-1.5 transition active:scale-95">
+                            <svg class="w-4 h-4 text-[#1d9bf0] shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                            </svg>
+                            <span>گۆڕینی ناو</span>
+                        </button>
+
+                        <button onclick="openTrimmerModal()" class="py-2.5 px-2 rounded-2xl bg-[#0b0e14] hover:bg-[#1a2232] border border-white/10 text-xs font-semibold text-slate-200 flex items-center justify-center gap-1.5 transition active:scale-95">
+                            <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879M12 12L9.121 9.121m0 5.758a3 3 0 10-4.243 4.243 3 3 0 004.243-4.243zm0-5.758a3 3 0 10-4.243-4.243 3 3 0 004.243 4.243z"/>
+                            </svg>
+                            <span>بڕینی گۆرانی</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- شریتی پێشکەوتنی گۆرانی و کات -->
+                <div class="w-full mb-5">
+                    <input type="range" id="seekSlider" min="0" max="100" value="0" step="0.1"
+                           oninput="handleSeek(this.value)"
+                           class="custom-slider w-full h-1.5 rounded-lg bg-slate-800">
+                    <div dir="ltr" class="flex justify-between text-[11px] font-medium text-slate-400 mt-2">
+                        <span id="currentTimeText">0:00</span>
+                        <span id="totalTimeText">0:00</span>
+                    </div>
+                </div>
+
+                <!-- دوگمەکانی کۆنترۆڵکردنی لێدان -->
+                <div class="flex items-center justify-between px-1">
+                    <!-- دووبارەکردنەوە -->
+                    <button id="repeatBtn" onclick="toggleRepeat()" class="flex flex-col items-center gap-1 text-slate-400 hover:text-white transition" title="دووبارەکردنەوە">
+                        <div class="p-2 rounded-full bg-[#0b0e14] border border-white/5">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                            </svg>
+                        </div>
+                        <span class="text-[10px]">دووبارە</span>
+                    </button>
+
+                    <!-- پێشوو -->
+                    <button onclick="playPrevious()" class="w-11 h-11 rounded-full bg-[#0b0e14] border border-white/10 flex items-center justify-center text-white hover:bg-[#1d2534] active:scale-95 transition" title="پێشوو">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                            <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
+                        </svg>
+                    </button>
+
+                    <!-- لێدان / وەستان -->
+                    <button onclick="togglePlayPause()" class="w-16 h-16 rounded-full play-btn-glow flex items-center justify-center text-white">
+                        <svg id="iconPlay" class="w-8 h-8 fill-current ml-0.5" viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                        <svg id="iconPause" class="w-8 h-8 fill-current hidden" viewBox="0 0 24 24">
+                            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                        </svg>
+                    </button>
+
+                    <!-- دواتر -->
+                    <button onclick="playNext()" class="w-11 h-11 rounded-full bg-[#0b0e14] border border-white/10 flex items-center justify-center text-white hover:bg-[#1d2534] active:scale-95 transition" title="دواتر">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                            <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
+                        </svg>
+                    </button>
+
+                    <!-- تێکەڵکردن -->
+                    <button id="shuffleBtn" onclick="toggleShuffle()" class="flex flex-col items-center gap-1 text-slate-400 hover:text-white transition" title="تێکەڵکردن">
+                        <div class="p-2 rounded-full bg-[#0b0e14] border border-white/5">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/>
+                            </svg>
+                        </div>
+                        <span class="text-[10px]">تێکەڵکردن</span>
+                    </button>
+                </div>
             </div>
-        </div>
 
-        <!-- أزرار التحكم -->
-        <div class="controls-row">
-            <button class="ctrl-btn" id="repeatBtn" onclick="toggleRepeat()">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
-                <span>دووبارە</span>
-            </button>
+            <!-- بەشی لیستی هەموو گۆرانییەکانی ناو ئامێر -->
+            <div class="bg-[#141923] border border-white/10 rounded-3xl p-4 shadow-xl">
+                
+                <!-- سەردێڕ و دوگمەی زیادکردنی فۆڵدەر یان گۆرانی -->
+                <div class="flex items-center justify-between gap-2 mb-3">
+                    <div class="flex items-center gap-2">
+                        <h3 class="text-sm font-bold text-white">گۆرانییەکانم</h3>
+                        <span id="songsCountBadge" class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-[#1d9bf0]/15 text-[#38bdf8]">0</span>
+                    </div>
 
-            <button class="nav-btn" onclick="nextSong()">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
-            </button>
-
-            <button class="play-btn" id="playPauseBtn" onclick="togglePlay()">
-                <svg id="playIcon" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-            </button>
-
-            <button class="nav-btn" onclick="prevSong()">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
-            </button>
-
-            <button class="ctrl-btn" id="shuffleBtn" onclick="toggleShuffle()">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
-                <span>تێکەڵکردن</span>
-            </button>
-        </div>
-    </div>
-
-    <!-- قائمة الأغاني وزر السماح بالوصول -->
-    <div class="library-card">
-        <div class="library-header">
-            <div class="library-title">
-                <span>گۆرانییەکانم</span>
-                <span class="badge" id="songCount">0</span>
-            </div>
-            <button class="import-btn" onclick="document.getElementById('fileInput').click()">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-                <span>هێنانی گۆرانییەکان</span>
-            </button>
-        </div>
-
-        <div class="song-list" id="songList">
-            <div class="empty-state">
-                بۆ پیشاندانی هەموو گۆرانییەکانی ناو مۆبایلەکەت، دوگمەی <b>"هێنانی گۆرانییەکان"</b> دابگرە و ڕێگەپێدان بدە.
-            </div>
-        </div>
-    </div>
-
-    <!-- مدخلات الملفات المخفية -->
-    <input type="file" id="fileInput" accept="audio/*" multiple style="display: none;">
-    <input type="file" id="i
+                    <button onclick="requestDeviceMusicAccess()" class="text-xs font-semibold text-[#1d9bf0] hover:text-[#38bdf8] bg-[#0b0e14] border border-[#1d9bf0]/30 px-3 py-1.5 rounded-xl transition">
+   
